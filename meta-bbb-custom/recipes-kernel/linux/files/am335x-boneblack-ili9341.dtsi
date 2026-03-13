@@ -1,0 +1,52 @@
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * ILI9341 TFT 2.8" SPI display for BeagleBone Black
+ *
+ * Connections:
+ *   CS   -> P9_17 (gpio0_5)
+ *   SCK  -> P9_22 (gpio0_2)
+ *   MOSI -> P9_18 (gpio0_4)
+ *   MISO -> P9_21 (gpio0_3)
+ *   DC   -> P9_15 (gpio1_16)
+ *   RST  -> P9_23 (gpio1_17)
+ */
+
+&am33xx_pinmux {
+    spi0_pins: pinmux_spi0_pins {
+        pinctrl-single,pins = 
+            AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_INPUT,  MUX_MODE0)  /* P9_22 */    
+            AM33XX_PADCONF(AM335X_PIN_SPI0_D0,   PIN_INPUT,  MUX_MODE0)  /* P9_21 MISO */
+            AM33XX_PADCONF(AM335X_PIN_SPI0_D1,   PIN_OUTPUT, MUX_MODE0)  /* P9_18 MOSI */
+            AM33XX_PADCONF(AM335X_PIN_SPI0_CS0,  PIN_OUTPUT, MUX_MODE0)  /* P9_17 CS */
+        >;
+    };
+
+    ili9341_pins: pinmux_ili9341_pins {
+        pinctrl-single,pins = 
+            AM33XX_PADCONF(AM335X_PIN_GPMC_A0, PIN_OUTPUT, MUX_MODE7)  /* P9_15 DC  gpio1_16 */
+            AM33XX_PADCONF(AM335X_PIN_GPMC_A1, PIN_OUTPUT, MUX_MODE7)  /* P9_23 RST gpio1_17 */
+        >;
+    };
+};
+
+&spi0 {
+    status = "okay";
+    pinctrl-names = "default";
+    pinctrl-0 = <&spi0_pins>;
+
+    ili9341: ili9341@0 {
+        compatible = "ilitek,ili9341";
+        reg = <0>;
+        spi-max-frequency = <32000000>;
+        pinctrl-names = "default";
+        pinctrl-0 = <&ili9341_pins>;
+
+        dc-gpios   = <&gpio1 16 GPIO_ACTIVE_HIGH>;  /* P9_15 */
+        reset-gpios = <&gpio1 17 GPIO_ACTIVE_HIGH>; /* P9_23 */
+
+        rotate = <270>;
+        bgr;
+        fps = <30>;
+        buswidth = <8>;
+    };
+};
