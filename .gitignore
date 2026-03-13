@@ -1,0 +1,10 @@
+poky/
+meta-ti/
+meta-arm/
+build/tmp/
+build/cache/
+build/bitbake-cookerdaemon.log
+downloads/
+sstate-cache/
+*.pyc
+__pycache__/
