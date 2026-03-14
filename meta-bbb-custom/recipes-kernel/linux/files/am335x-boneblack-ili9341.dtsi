@@ -14,7 +14,7 @@
 &am33xx_pinmux {
     spi0_pins: pinmux_spi0_pins {
         pinctrl-single,pins = <
-            AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_INPUT,  MUX_MODE0)  /* P9_22 */    
+            AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_INPUT,  MUX_MODE0)  /* P9_22 SCLK*/    
             AM33XX_PADCONF(AM335X_PIN_SPI0_D0,   PIN_INPUT,  MUX_MODE0)  /* P9_21 MISO */
             AM33XX_PADCONF(AM335X_PIN_SPI0_D1,   PIN_OUTPUT, MUX_MODE0)  /* P9_18 MOSI */
             AM33XX_PADCONF(AM335X_PIN_SPI0_CS0,  PIN_OUTPUT, MUX_MODE0)  /* P9_17 CS */
@@ -42,7 +42,7 @@
         pinctrl-0 = <&ili9341_pins>;
 
         dc-gpios   = <&gpio1 16 GPIO_ACTIVE_HIGH>;  /* P9_15 */
-        reset-gpios = <&gpio1 17 GPIO_ACTIVE_HIGH>; /* P9_23 */
+        reset-gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;  /* P9_23 */
 
         rotate = <270>;
         bgr;

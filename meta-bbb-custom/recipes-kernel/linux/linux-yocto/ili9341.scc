@@ -1,0 +1,3 @@
+define KFEATURE_DESCRIPTION "Enable ILI9341 TFT display"
+define KFEATURE_COMPATIBILITY board
+kconf hardware ili9341.cfg
