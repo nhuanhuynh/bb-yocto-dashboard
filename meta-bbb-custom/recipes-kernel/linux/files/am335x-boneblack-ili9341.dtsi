@@ -6,7 +6,7 @@
  *   CS   -> P9_17 (gpio0_5)
  *   SCK  -> P9_22 (gpio0_2)
  *   MOSI -> P9_18 (gpio0_4)
- *   MISO -> P9_21 (gpio0_3)
+ *   MISO -> P9_21 (gpio0_3) (optional)
  *   DC   -> P9_15 (gpio1_16)
  *   RST  -> P9_23 (gpio1_17)
  */

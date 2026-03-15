@@ -1,8 +1,7 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/files:${THISDIR}/linux-yocto:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI += "file://am335x-boneblack.dts \
             file://am335x-boneblack-ili9341.dtsi \
-            file://ili9341.scc \
             file://ili9341.cfg"
 
 do_patch:prepend() {
