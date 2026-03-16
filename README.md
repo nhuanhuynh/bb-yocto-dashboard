@@ -1,6 +1,6 @@
 # 🦴 BeagleBone Black Yocto Dashboard
 
-Yocto image for BeagleBone Black with ILI9341 2.8 inch TFT display.
+Yocto image for BeagleBone Black with ILI9341 2.8 inch TFT display and Qt5 UI.
 
 ## 🔧 Hardware
 - BeagleBone Black
@@ -14,6 +14,8 @@ mkdir -p ~/working/yocto && cd ~/working/yocto
 git clone -b kirkstone https://git.yoctoproject.org/poky
 git clone -b kirkstone https://git.yoctoproject.org/meta-ti
 git clone -b kirkstone https://git.yoctoproject.org/meta-arm
+git clone -b kirkstone https://github.com/openembedded/meta-openembedded.git
+git clone -b kirkstone https://github.com/meta-qt5/meta-qt5.git
 ```
 
 ## 🏗️ Build
@@ -38,6 +40,11 @@ sudo dd \
 sudo minicom -D /dev/ttyUSB0 -b 115200
 ```
 
+## 🚀 Run Qt App
+```bash
+qt-hello -platform linuxfb
+```
+
 ## ✅ Check ILI9341 Driver
 ```bash
 dmesg | grep -i "ili9341\|fbtft\|fb0"
@@ -50,3 +57,4 @@ dmesg | grep -i "ili9341\|fbtft\|fb0"
 | Release | Kirkstone (LTS) |
 | Kernel | 5.15 |
 | Machine | beaglebone-yocto |
+| Qt | 5.15.7 |
