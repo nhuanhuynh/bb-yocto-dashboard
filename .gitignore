@@ -2,6 +2,8 @@
 poky/
 meta-ti/
 meta-arm/
+meta-qt5
+meta-openembedded
 build/tmp/
 build/cache/
 build/bitbake-cookerdaemon.log
