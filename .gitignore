@@ -7,6 +7,9 @@ meta-openembedded
 build/tmp/
 build/cache/
 build/bitbake-cookerdaemon.log
+build/CMakeFiles/
+build/.cmake/
+build/CMakeCache.txt
 downloads/
 sstate-cache/
 *.pyc

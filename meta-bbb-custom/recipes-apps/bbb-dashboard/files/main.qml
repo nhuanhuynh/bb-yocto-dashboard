@@ -11,6 +11,8 @@ Window {
 
     property int currentCpuUsage: 0
     property int currentMemoryUsage: 0
+    property int currentGpuUsage: 0
+    property int currentStorageUsage: 0
 
     Connections {
         target: cpuMonitor
@@ -23,6 +25,20 @@ Window {
         target: memoryMonitor
         onMemoryUsageChanged: {
             currentMemoryUsage = memoryMonitor.memoryUsage
+        }
+    }
+
+    Connections {
+        target: gpuMonitor
+        onGpuUsageChanged: {
+            currentGpuUsage = gpuMonitor.gpuUsage
+        }
+    }
+
+    Connections {
+        target: storageMonitor
+        onStorageUsageChanged: {
+            currentStorageUsage = storageMonitor.storageUsage
         }
     }
 
@@ -157,7 +173,7 @@ Window {
 
                             Text {
                                 anchors.centerIn: parent
-                                text: "37%"
+                                text: currentGpuUsage + "%"
                                 color: "#00ffff"
                                 font.pixelSize: 16
                                 font.bold: true
@@ -287,13 +303,27 @@ Window {
                             renderType: Text.NativeRendering
                         }
 
-                        Text {
-                            text: "6.3%"
-                            color: "#00ffff"
-                            font.pixelSize: 18
-                            font.bold: true
+                        Item {
                             Layout.alignment: Qt.AlignHCenter
-                            renderType: Text.NativeRendering
+                            Layout.preferredWidth: 50
+                            Layout.preferredHeight: 50
+
+                            Rectangle {
+                                anchors.fill: parent
+                                radius: width / 2
+                                color: "transparent"
+                                border.color: "#00ffff"
+                                border.width: 1
+                            }
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: currentStorageUsage + "%"
+                                color: "#00ffff"
+                                font.pixelSize: 16
+                                font.bold: true
+                                renderType: Text.NativeRendering
+                            }
                         }
                     }
                 }
