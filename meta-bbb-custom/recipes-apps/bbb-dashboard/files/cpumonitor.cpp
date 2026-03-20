@@ -2,17 +2,14 @@
 #include <QFile>
 #include <QTextStream>
 #include <QRegularExpression>
-#include <QDebug>
 
 CPUMonitor::CPUMonitor(QObject *parent)
     : QObject(parent), m_cpuUsage(0)
 {
     m_lastCPUTimes = readCPUTimes();
-    qDebug() << "CPUMonitor initialized";
 
     connect(&m_timer, &QTimer::timeout, this, &CPUMonitor::updateCPU);
     m_timer.start(1000); // Update every 1 second
-    qDebug() << "Timer started";
 }
 
 CPUMonitor::~CPUMonitor()
@@ -75,8 +72,6 @@ void CPUMonitor::updateCPU()
     CPUTimes currentTimes = readCPUTimes();
     int newUsage = calculateUsage(m_lastCPUTimes, currentTimes);
     m_lastCPUTimes = currentTimes;
-
-    qDebug() << "CPU Usage:" << newUsage << "%";
 
     if (newUsage != m_cpuUsage) {
         m_cpuUsage = newUsage;

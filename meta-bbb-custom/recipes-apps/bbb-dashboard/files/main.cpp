@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "cpumonitor.h"
+#include "memorymonitor.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,9 +16,12 @@ int main(int argc, char *argv[])
 
     // Create and register CPU Monitor
     CPUMonitor *cpuMonitor = new CPUMonitor(&app);
+    // Create and register Memory Monitor
+    MemoryMonitor *memoryMonitor = new MemoryMonitor(&app);
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("cpuMonitor", cpuMonitor);
+    engine.rootContext()->setContextProperty("memoryMonitor", memoryMonitor);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl)
                      {
