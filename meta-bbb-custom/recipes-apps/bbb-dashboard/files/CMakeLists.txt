@@ -18,6 +18,8 @@ set(PROJECT_SOURCES
         main.cpp
         cpumonitor.cpp
         memorymonitor.cpp
+        gpumonitor.cpp
+        storagemonitor.cpp
         qml.qrc
 )
 
