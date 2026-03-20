@@ -13,6 +13,8 @@ SRC_URI = "file://main.cpp \
            file://qml.qrc \
            file://cpumonitor.h \
            file://cpumonitor.cpp \
+           file://memorymonitor.h \
+           file://memorymonitor.cpp \
            file://CMakeLists.txt"
 
 S = "${WORKDIR}"

@@ -10,11 +10,19 @@ Window {
     title: "BBB Dashboard"
 
     property int currentCpuUsage: 0
+    property int currentMemoryUsage: 0
 
     Connections {
         target: cpuMonitor
         onCpuUsageChanged: {
             currentCpuUsage = cpuMonitor.cpuUsage
+        }
+    }
+
+    Connections {
+        target: memoryMonitor
+        onMemoryUsageChanged: {
+            currentMemoryUsage = memoryMonitor.memoryUsage
         }
     }
 
@@ -241,7 +249,7 @@ Window {
 
                             Text {
                                 anchors.centerIn: parent
-                                text: "11%"
+                                text: currentMemoryUsage + "%"
                                 color: "#00ffff"
                                 font.pixelSize: 16
                                 font.bold: true
