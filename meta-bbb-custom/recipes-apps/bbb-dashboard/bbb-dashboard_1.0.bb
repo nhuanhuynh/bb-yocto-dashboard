@@ -11,6 +11,8 @@ FILES:${PN} = "${bindir}/bbb-dashboard"
 SRC_URI = "file://main.cpp \
            file://main.qml \
            file://qml.qrc \
+           file://cpumonitor.h \
+           file://cpumonitor.cpp \
            file://CMakeLists.txt"
 
 S = "${WORKDIR}"
