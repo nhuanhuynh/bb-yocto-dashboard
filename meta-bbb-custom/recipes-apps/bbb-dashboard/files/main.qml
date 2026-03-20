@@ -9,6 +9,15 @@ Window {
     visible: true
     title: "BBB Dashboard"
 
+    property int currentCpuUsage: 0
+
+    Connections {
+        target: cpuMonitor
+        onCpuUsageChanged: {
+            currentCpuUsage = cpuMonitor.cpuUsage
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
 
@@ -87,7 +96,7 @@ Window {
 
                             Text {
                                 anchors.centerIn: parent
-                                text: "0%"
+                                text: currentCpuUsage + "%"
                                 color: "#00ffff"
                                 font.pixelSize: 16
                                 font.bold: true
