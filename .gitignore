@@ -11,3 +11,4 @@ downloads/
 sstate-cache/
 *.pyc
 __pycache__/
+meta-bbb-custom/recipes-apps/bbb-dashboard/files/build/

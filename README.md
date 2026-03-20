@@ -21,6 +21,7 @@ git clone -b kirkstone https://github.com/meta-qt5/meta-qt5.git
 ## 🏗️ Build
 ```bash
 source poky/oe-init-build-env build
+bitbake bbb-dashboard
 bitbake core-image-minimal
 ```
 
@@ -42,7 +43,7 @@ sudo minicom -D /dev/ttyUSB0 -b 115200
 
 ## 🚀 Run Qt App
 ```bash
-qt-hello -platform linuxfb
+bbb-dashboard -platform linuxfb
 ```
 
 ## ✅ Check ILI9341 Driver
