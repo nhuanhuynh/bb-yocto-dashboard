@@ -13,6 +13,8 @@ Window {
     property int currentMemoryUsage: 0
     property int currentGpuUsage: 0
     property int currentStorageUsage: 0
+    property string currentDate: "00/00"
+    property string currentTime: "00:00"
 
     Connections {
         target: cpuMonitor
@@ -39,6 +41,16 @@ Window {
         target: storageMonitor
         onStorageUsageChanged: {
             currentStorageUsage = storageMonitor.storageUsage
+        }
+    }
+
+    Connections {
+        target: dateTimeMonitor
+        onDateChanged: {
+            currentDate = dateTimeMonitor.currentDate
+        }
+        onTimeChanged: {
+            currentTime = dateTimeMonitor.currentTime
         }
     }
 
@@ -79,6 +91,8 @@ Window {
 
                 // CPU
                 Rectangle {
+                    Layout.column: 0
+                    Layout.row: 0
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     border.color: "#00ffff"
@@ -132,6 +146,8 @@ Window {
 
                 // GPU
                 Rectangle {
+                    Layout.column: 1
+                    Layout.row: 0
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     border.color: "#00ffff"
@@ -183,47 +199,10 @@ Window {
                     }
                 }
 
-                // DATE
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    border.color: "#00ffff"
-                    border.width: 0
-                    radius: 5
-
-                    gradient: Gradient {
-                        GradientStop { position: 0.0; color: "#1a4a7e" }
-                        GradientStop { position: 1.0; color: "#0a2a4a" }
-                    }
-
-                    ColumnLayout {
-                        anchors.fill: parent
-                        anchors.margins: 4
-                        anchors.topMargin: 2
-                        spacing: 3
-
-                        Text {
-                            text: "📅 DATE"
-                            color: "#ffffff"
-                            font.pixelSize: 14
-                            font.bold: true
-                            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
-                            renderType: Text.NativeRendering
-                        }
-
-                        Text {
-                            text: "12/11"
-                            color: "#00ffff"
-                            font.pixelSize: 18
-                            font.bold: true
-                            Layout.alignment: Qt.AlignHCenter
-                            renderType: Text.NativeRendering
-                        }
-                    }
-                }
-
                 // Memory
                 Rectangle {
+                    Layout.column: 0
+                    Layout.row: 1
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     border.color: "#00ffff"
@@ -277,6 +256,8 @@ Window {
 
                 // Storage
                 Rectangle {
+                    Layout.column: 1
+                    Layout.row: 1
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     border.color: "#00ffff"
@@ -328,10 +309,13 @@ Window {
                     }
                 }
 
-                // Time
+                // DateTime
                 Rectangle {
+                    Layout.column: 2
+                    Layout.row: 0
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    Layout.rowSpan: 2
                     border.color: "#00ffff"
                     border.width: 0
                     radius: 5
@@ -344,26 +328,38 @@ Window {
                     ColumnLayout {
                         anchors.fill: parent
                         anchors.margins: 4
-                        anchors.topMargin: 2
-                        spacing: 3
+                        spacing: 5
 
                         Text {
-                            text: "🕐 TIME"
+                            text: "📅 TIME"
                             color: "#ffffff"
                             font.pixelSize: 14
                             font.bold: true
-                            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                             renderType: Text.NativeRendering
                         }
 
+                        Item { Layout.fillHeight: true }
+
                         Text {
-                            text: "13:25"
+                            text: dateTimeMonitor.currentDate
                             color: "#00ffff"
-                            font.pixelSize: 18
+                            font.pixelSize: 20
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                             renderType: Text.NativeRendering
                         }
+
+                        Text {
+                            text: dateTimeMonitor.currentTime
+                            color: "#00ffff"
+                            font.pixelSize: 28
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                            renderType: Text.NativeRendering
+                        }
+
+                        Item { Layout.fillHeight: true }
                     }
                 }
             }
