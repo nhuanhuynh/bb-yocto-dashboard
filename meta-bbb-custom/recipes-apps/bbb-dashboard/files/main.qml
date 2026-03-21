@@ -67,17 +67,33 @@ Window {
             anchors.margins: 8
             spacing: 8
 
-            // Top bar: HOME title
-            Text {
+            // Top bar: Time and Title
+            RowLayout {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 25
-                text: "HOME"
-                color: "#ffffff"
-                font.pixelSize: 16
-                font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                renderType: Text.NativeRendering
+                spacing: 8
+
+                Text {
+                    text: dateTimeMonitor.currentTime
+                    color: "#ffffff"
+                    font.pixelSize: 15
+                    font.bold: true
+                    renderType: Text.NativeRendering
+                }
+
+                Item { Layout.fillWidth: true }
+
+                Text {
+                    text: "beaglebone-yocto"
+                    color: "#aaaaaa"
+                    font.pixelSize: 12
+                    font.bold: true
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    renderType: Text.NativeRendering
+                }
+
+                Item { Layout.fillWidth: true }
             }
 
             // Main Grid 3x2
@@ -95,7 +111,7 @@ Window {
                     Layout.row: 0
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    border.color: "#00ffff"
+                    border.color: "#ffb700"
                     border.width: 0
                     radius: 5
 
@@ -124,18 +140,40 @@ Window {
                             Layout.preferredWidth: 50
                             Layout.preferredHeight: 50
 
-                            Rectangle {
+                            Canvas {
                                 anchors.fill: parent
-                                radius: width / 2
-                                color: "transparent"
-                                border.color: "#00ffff"
-                                border.width: 1
+                                onPaint: {
+                                    var ctx = getContext("2d")
+                                    var centerX = width / 2
+                                    var centerY = height / 2
+                                    var radius = 20
+                                    
+                                    ctx.strokeStyle = "#333333"
+                                    ctx.lineWidth = 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
+                                    ctx.stroke()
+                                    
+                                    ctx.strokeStyle = "#ffb700"
+                                    ctx.lineWidth = 2
+                                    var angle = (currentCpuUsage / 100.0) * Math.PI * 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, -Math.PI/2, -Math.PI/2 + angle)
+                                    ctx.stroke()
+                                }
+                                
+                                Timer {
+                                    interval: 100
+                                    running: true
+                                    repeat: true
+                                    onTriggered: parent.requestPaint()
+                                }
                             }
 
                             Text {
                                 anchors.centerIn: parent
                                 text: currentCpuUsage + "%"
-                                color: "#00ffff"
+                                color: "#ffffff"
                                 font.pixelSize: 16
                                 font.bold: true
                                 renderType: Text.NativeRendering
@@ -150,7 +188,7 @@ Window {
                     Layout.row: 0
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    border.color: "#00ffff"
+                    border.color: "#ffb700"
                     border.width: 0
                     radius: 5
 
@@ -179,18 +217,40 @@ Window {
                             Layout.preferredWidth: 50
                             Layout.preferredHeight: 50
 
-                            Rectangle {
+                            Canvas {
                                 anchors.fill: parent
-                                radius: width / 2
-                                color: "transparent"
-                                border.color: "#00ffff"
-                                border.width: 1
+                                onPaint: {
+                                    var ctx = getContext("2d")
+                                    var centerX = width / 2
+                                    var centerY = height / 2
+                                    var radius = 20
+                                    
+                                    ctx.strokeStyle = "#333333"
+                                    ctx.lineWidth = 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
+                                    ctx.stroke()
+                                    
+                                    ctx.strokeStyle = "#ffb700"
+                                    ctx.lineWidth = 2
+                                    var angle = (currentGpuUsage / 100.0) * Math.PI * 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, -Math.PI/2, -Math.PI/2 + angle)
+                                    ctx.stroke()
+                                }
+                                
+                                Timer {
+                                    interval: 100
+                                    running: true
+                                    repeat: true
+                                    onTriggered: parent.requestPaint()
+                                }
                             }
 
                             Text {
                                 anchors.centerIn: parent
                                 text: currentGpuUsage + "%"
-                                color: "#00ffff"
+                                color: "#ffffff"
                                 font.pixelSize: 16
                                 font.bold: true
                                 renderType: Text.NativeRendering
@@ -205,7 +265,7 @@ Window {
                     Layout.row: 1
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    border.color: "#00ffff"
+                    border.color: "#ffb700"
                     border.width: 0
                     radius: 5
 
@@ -221,9 +281,9 @@ Window {
                         spacing: 3
 
                         Text {
-                            text: "◉ Memory"
+                            text: "◉ MEMORY"
                             color: "#ffffff"
-                            font.pixelSize: 14
+                            font.pixelSize: 12
                             font.bold: true
                             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                             renderType: Text.NativeRendering
@@ -234,18 +294,40 @@ Window {
                             Layout.preferredWidth: 50
                             Layout.preferredHeight: 50
 
-                            Rectangle {
+                            Canvas {
                                 anchors.fill: parent
-                                radius: width / 2
-                                color: "transparent"
-                                border.color: "#00ffff"
-                                border.width: 1
+                                onPaint: {
+                                    var ctx = getContext("2d")
+                                    var centerX = width / 2
+                                    var centerY = height / 2
+                                    var radius = 20
+                                    
+                                    ctx.strokeStyle = "#333333"
+                                    ctx.lineWidth = 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
+                                    ctx.stroke()
+                                    
+                                    ctx.strokeStyle = "#ffb700"
+                                    ctx.lineWidth = 2
+                                    var angle = (currentMemoryUsage / 100.0) * Math.PI * 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, -Math.PI/2, -Math.PI/2 + angle)
+                                    ctx.stroke()
+                                }
+                                
+                                Timer {
+                                    interval: 100
+                                    running: true
+                                    repeat: true
+                                    onTriggered: parent.requestPaint()
+                                }
                             }
 
                             Text {
                                 anchors.centerIn: parent
                                 text: currentMemoryUsage + "%"
-                                color: "#00ffff"
+                                color: "#ffffff"
                                 font.pixelSize: 16
                                 font.bold: true
                                 renderType: Text.NativeRendering
@@ -260,7 +342,7 @@ Window {
                     Layout.row: 1
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    border.color: "#00ffff"
+                    border.color: "#ffb700"
                     border.width: 0
                     radius: 5
 
@@ -276,9 +358,9 @@ Window {
                         spacing: 3
 
                         Text {
-                            text: "◈ Storage"
+                            text: "◈ STORAGE"
                             color: "#ffffff"
-                            font.pixelSize: 14
+                            font.pixelSize: 12
                             font.bold: true
                             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                             renderType: Text.NativeRendering
@@ -289,18 +371,40 @@ Window {
                             Layout.preferredWidth: 50
                             Layout.preferredHeight: 50
 
-                            Rectangle {
+                            Canvas {
                                 anchors.fill: parent
-                                radius: width / 2
-                                color: "transparent"
-                                border.color: "#00ffff"
-                                border.width: 1
+                                onPaint: {
+                                    var ctx = getContext("2d")
+                                    var centerX = width / 2
+                                    var centerY = height / 2
+                                    var radius = 20
+                                    
+                                    ctx.strokeStyle = "#333333"
+                                    ctx.lineWidth = 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
+                                    ctx.stroke()
+                                    
+                                    ctx.strokeStyle = "#ffb700"
+                                    ctx.lineWidth = 2
+                                    var angle = (currentStorageUsage / 100.0) * Math.PI * 2
+                                    ctx.beginPath()
+                                    ctx.arc(centerX, centerY, radius, -Math.PI/2, -Math.PI/2 + angle)
+                                    ctx.stroke()
+                                }
+                                
+                                Timer {
+                                    interval: 100
+                                    running: true
+                                    repeat: true
+                                    onTriggered: parent.requestPaint()
+                                }
                             }
 
                             Text {
                                 anchors.centerIn: parent
                                 text: currentStorageUsage + "%"
-                                color: "#00ffff"
+                                color: "#ffffff"
                                 font.pixelSize: 16
                                 font.bold: true
                                 renderType: Text.NativeRendering
@@ -316,7 +420,7 @@ Window {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.rowSpan: 2
-                    border.color: "#00ffff"
+                    border.color: "#ffb700"
                     border.width: 0
                     radius: 5
 
@@ -343,7 +447,7 @@ Window {
 
                         Text {
                             text: dateTimeMonitor.currentDate
-                            color: "#00ffff"
+                            color: "#ffffff"
                             font.pixelSize: 20
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
@@ -352,7 +456,7 @@ Window {
 
                         Text {
                             text: dateTimeMonitor.currentTime
-                            color: "#00ffff"
+                            color: "#ffffff"
                             font.pixelSize: 28
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
@@ -368,13 +472,31 @@ Window {
             RowLayout {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 25
-                spacing: 5
+                spacing: 0
 
                 Text {
                     text: "⌂"
+                    color: "#ffffff"
+                    font.pixelSize: 28
+                }
+
+                Item { Layout.fillWidth: true }
+
+                Text {
+                    text: "◉"
                     color: "#888888"
                     font.pixelSize: 28
                 }
+
+                Item { Layout.fillWidth: true }
+
+                Text {
+                    text: "◈"
+                    color: "#888888"
+                    font.pixelSize: 28
+                }
+
+                Item { Layout.fillWidth: true }
 
                 Text {
                     text: "⚙"
