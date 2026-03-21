@@ -221,7 +221,7 @@ Window {
                         spacing: 3
 
                         Text {
-                            text: "💾 Memory"
+                            text: "◉ Memory"
                             color: "#ffffff"
                             font.pixelSize: 14
                             font.bold: true
@@ -276,7 +276,7 @@ Window {
                         spacing: 3
 
                         Text {
-                            text: "💿 Storage"
+                            text: "◈ Storage"
                             color: "#ffffff"
                             font.pixelSize: 14
                             font.bold: true
@@ -331,7 +331,7 @@ Window {
                         spacing: 5
 
                         Text {
-                            text: "📅 TIME"
+                            text: "◎ TIME"
                             color: "#ffffff"
                             font.pixelSize: 14
                             font.bold: true
@@ -371,20 +371,23 @@ Window {
                 spacing: 5
 
                 Text {
-                    text: "🏠"
-                    font.pixelSize: 14
+                    text: "⌂"
+                    color: "#ffffff"
+                    font.pixelSize: 28
                 }
 
                 Text {
-                    text: "⚙️"
-                    font.pixelSize: 14
+                    text: "⚙"
+                    color: "#ffffff"
+                    font.pixelSize: 28
                 }
 
                 Item { Layout.fillWidth: true }
 
                 Text {
                     text: "☰"
-                    font.pixelSize: 14
+                    color: "#ffffff"
+                    font.pixelSize: 28
                 }
             }
         }
