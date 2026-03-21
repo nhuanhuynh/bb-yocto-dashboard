@@ -5,6 +5,7 @@
 #include "memorymonitor.h"
 #include "gpumonitor.h"
 #include "storagemonitor.h"
+#include "datetimemonitor.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,12 +25,15 @@ int main(int argc, char *argv[])
     GPUMonitor *gpuMonitor = new GPUMonitor(&app);
     // Create and register Storage Monitor
     StorageMonitor *storageMonitor = new StorageMonitor(&app);
+    // Create and register DateTime Monitor
+    DateTimeMonitor *dateTimeMonitor = new DateTimeMonitor(&app);
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("cpuMonitor", cpuMonitor);
     engine.rootContext()->setContextProperty("memoryMonitor", memoryMonitor);
     engine.rootContext()->setContextProperty("gpuMonitor", gpuMonitor);
     engine.rootContext()->setContextProperty("storageMonitor", storageMonitor);
+    engine.rootContext()->setContextProperty("dateTimeMonitor", dateTimeMonitor);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl)
                      {

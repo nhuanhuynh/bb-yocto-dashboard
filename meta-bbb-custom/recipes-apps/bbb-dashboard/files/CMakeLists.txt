@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
         memorymonitor.cpp
         gpumonitor.cpp
         storagemonitor.cpp
+        datetimemonitor.cpp
         qml.qrc
 )
 

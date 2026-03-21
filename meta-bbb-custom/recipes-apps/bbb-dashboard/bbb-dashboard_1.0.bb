@@ -19,6 +19,8 @@ SRC_URI = "file://main.cpp \
            file://gpumonitor.cpp \
            file://storagemonitor.h \
            file://storagemonitor.cpp \
+           file://datetimemonitor.h \
+           file://datetimemonitor.cpp \
            file://CMakeLists.txt"
 
 S = "${WORKDIR}"
