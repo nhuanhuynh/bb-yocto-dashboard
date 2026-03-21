@@ -372,13 +372,13 @@ Window {
 
                 Text {
                     text: "⌂"
-                    color: "#ffffff"
+                    color: "#888888"
                     font.pixelSize: 28
                 }
 
                 Text {
                     text: "⚙"
-                    color: "#ffffff"
+                    color: "#888888"
                     font.pixelSize: 28
                 }
 
@@ -386,7 +386,7 @@ Window {
 
                 Text {
                     text: "☰"
-                    color: "#ffffff"
+                    color: "#888888"
                     font.pixelSize: 28
                 }
             }
