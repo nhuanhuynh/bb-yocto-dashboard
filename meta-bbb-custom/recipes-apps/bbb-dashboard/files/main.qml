@@ -18,38 +18,38 @@ Window {
 
     Connections {
         target: cpuMonitor
-        onCpuUsageChanged: {
+        function onCpuUsageChanged() {
             currentCpuUsage = cpuMonitor.cpuUsage
         }
     }
 
     Connections {
         target: memoryMonitor
-        onMemoryUsageChanged: {
+        function onMemoryUsageChanged() {
             currentMemoryUsage = memoryMonitor.memoryUsage
         }
     }
 
     Connections {
         target: gpuMonitor
-        onGpuUsageChanged: {
+        function onGpuUsageChanged() {
             currentGpuUsage = gpuMonitor.gpuUsage
         }
     }
 
     Connections {
         target: storageMonitor
-        onStorageUsageChanged: {
+        function onStorageUsageChanged() {
             currentStorageUsage = storageMonitor.storageUsage
         }
     }
 
     Connections {
         target: dateTimeMonitor
-        onDateChanged: {
+        function onDateChanged() {
             currentDate = dateTimeMonitor.currentDate
         }
-        onTimeChanged: {
+        function onTimeChanged() {
             currentTime = dateTimeMonitor.currentTime
         }
     }
@@ -355,7 +355,7 @@ Window {
                         anchors.fill: parent
                         anchors.margins: 4
                         anchors.topMargin: 2
-                        spacing: 3
+                        spacing: 5
 
                         Text {
                             text: "◈ STORAGE"
@@ -366,50 +366,40 @@ Window {
                             renderType: Text.NativeRendering
                         }
 
-                        Item {
+                        Item { Layout.fillHeight: true }
+
+                        // Percentage Text
+                        Text {
+                            text: currentStorageUsage + "%"
+                            color: "#ffffff"
+                            font.pixelSize: 14
+                            font.bold: true
                             Layout.alignment: Qt.AlignHCenter
-                            Layout.preferredWidth: 50
-                            Layout.preferredHeight: 50
+                            renderType: Text.NativeRendering
+                        }
 
-                            Canvas {
-                                anchors.fill: parent
-                                onPaint: {
-                                    var ctx = getContext("2d")
-                                    var centerX = width / 2
-                                    var centerY = height / 2
-                                    var radius = 20
-                                    
-                                    ctx.strokeStyle = "#333333"
-                                    ctx.lineWidth = 2
-                                    ctx.beginPath()
-                                    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
-                                    ctx.stroke()
-                                    
-                                    ctx.strokeStyle = "#ffb700"
-                                    ctx.lineWidth = 2
-                                    var angle = (currentStorageUsage / 100.0) * Math.PI * 2
-                                    ctx.beginPath()
-                                    ctx.arc(centerX, centerY, radius, -Math.PI/2, -Math.PI/2 + angle)
-                                    ctx.stroke()
-                                }
-                                
-                                Timer {
-                                    interval: 100
-                                    running: true
-                                    repeat: true
-                                    onTriggered: parent.requestPaint()
-                                }
-                            }
+                        // Progress Bar
+                        Rectangle {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 12
+                            color: "#333333"
+                            radius: 6
 
-                            Text {
-                                anchors.centerIn: parent
-                                text: currentStorageUsage + "%"
-                                color: "#ffffff"
-                                font.pixelSize: 16
-                                font.bold: true
-                                renderType: Text.NativeRendering
+                            Rectangle {
+                                anchors.left: parent.left
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                width: (currentStorageUsage / 100.0) * parent.width
+                                color: {
+                                    if (currentStorageUsage < 40) return "#ffb700"
+                                    else if (currentStorageUsage < 70) return "#ff5500"
+                                    else return "#ff3333"
+                                }
+                                radius: 6
                             }
                         }
+
+                        Item { Layout.fillHeight: true }
                     }
                 }
 
