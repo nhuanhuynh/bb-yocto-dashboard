@@ -1,0 +1,41 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          bbb-dashboard
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: BeagleBone Dashboard
+# Description:       System monitoring dashboard for BeagleBone Black
+### END INIT INFO
+
+NAME="bbb-dashboard"
+DAEMON="/usr/bin/bbb-dashboard"
+ARGS="-platform linuxfb"
+PIDFILE="/var/run/$NAME.pid"
+
+case "$1" in
+  start)
+    echo "Starting $NAME..."
+    nohup $DAEMON $ARGS > /dev/null 2>&1 &
+    echo $! > $PIDFILE
+    ;;
+  stop)
+    echo "Stopping $NAME..."
+    if [ -f $PIDFILE ]; then
+      kill $(cat $PIDFILE)
+      rm -f $PIDFILE
+    fi
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

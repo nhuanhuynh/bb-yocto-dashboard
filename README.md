@@ -46,6 +46,33 @@ sudo minicom -D /dev/ttyUSB0 -b 115200
 bbb-dashboard -platform linuxfb
 ```
 
+## ⚙️ Auto-boot Dashboard on Startup
+
+**1. Copy the init script to the board:**
+```bash
+scp meta-bbb-custom/recipes-apps/bbb-dashboard/files/bbb-dashboard.init root@192.168.1.2:/etc/init.d/bbb-dashboard
+chmod +x /etc/init.d/bbb-dashboard
+```
+
+**2. Enable auto-start by creating symlinks in rc*.d:**
+```bash
+ln -s /etc/init.d/bbb-dashboard /etc/rc5.d/S99bbb-dashboard
+ln -s /etc/init.d/bbb-dashboard /etc/rc3.d/S99bbb-dashboard
+```
+
+**3. Start the app immediately (without reboot):**
+```bash
+/etc/init.d/bbb-dashboard start
+```
+
+**4. Test auto-boot:**
+```bash
+reboot
+```
+The dashboard should appear automatically after the board boots (30-60 seconds).
+
+**Note:** Use `killall bbb-dashboard` or `/etc/init.d/bbb-dashboard stop` to stop the app if needed.
+
 ## ✅ Check ILI9341 Driver
 ```bash
 dmesg | grep -i "ili9341\|fbtft\|fb0"
