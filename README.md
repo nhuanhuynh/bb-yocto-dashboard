@@ -41,28 +41,78 @@ sudo dd \
 sudo minicom -D /dev/ttyUSB0 -b 115200
 ```
 
+## ✅ Check ILI9341 Driver
+```bash
+dmesg | grep -i "ili9341\|fbtft\|fb0"
+```
+
 ## 🚀 Run Qt App
 ```bash
 bbb-dashboard -platform linuxfb
 ```
 
-## ⚙️ Auto-boot Dashboard on Startup
-
-**1. Copy the init script to the board:**
+## 🌐 Configure Network (Static IP)
 ```bash
-scp meta-bbb-custom/recipes-apps/bbb-dashboard/files/bbb-dashboard.init root@192.168.1.2:/etc/init.d/bbb-dashboard
-chmod +x /etc/init.d/bbb-dashboard
+# Set static IP on eth0
+ip addr add 192.168.1.100/24 dev eth0
+ip route add default via 192.168.1.1
+
+# Set DNS
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+
+# Verify
+ip addr show eth0
+ping 8.8.8.8
 ```
 
-**2. Enable auto-start by creating symlinks in rc*.d:**
+**Or for permanent configuration (persists across reboots):**
 ```bash
-ln -s /etc/init.d/bbb-dashboard /etc/rc5.d/S99bbb-dashboard
-ln -s /etc/init.d/bbb-dashboard /etc/rc3.d/S99bbb-dashboard
+cat > /etc/systemd/network/10-eth0.network << 'EOF'
+[Match]
+Name=eth0
+
+[Network]
+DHCP=no
+Address=192.168.1.100/24
+Gateway=192.168.1.1
+DNS=8.8.8.8
+EOF
+
+systemctl restart systemd-networkd
 ```
 
-**3. Start the app immediately (without reboot):**
+## ⚙️ Auto-boot Dashboard on Startup (systemd)
+
+**1. Create systemd service file:**
 ```bash
-/etc/init.d/bbb-dashboard start
+cat > /etc/systemd/system/bbb-dashboard.service << 'EOF'
+[Unit]
+Description=BBB Dashboard Qt5 Application
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/bbb-dashboard -platform linuxfb
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+**2. Enable and start the service:**
+```bash
+systemctl daemon-reload
+systemctl enable bbb-dashboard
+systemctl start bbb-dashboard
+```
+
+**3. Verify service is running:**
+```bash
+systemctl status bbb-dashboard
+journalctl -u bbb-dashboard -n 20
 ```
 
 **4. Test auto-boot:**
@@ -71,12 +121,7 @@ reboot
 ```
 The dashboard should appear automatically after the board boots (30-60 seconds).
 
-**Note:** Use `killall bbb-dashboard` or `/etc/init.d/bbb-dashboard stop` to stop the app if needed.
-
-## ✅ Check ILI9341 Driver
-```bash
-dmesg | grep -i "ili9341\|fbtft\|fb0"
-```
+**Note:** Use `systemctl stop bbb-dashboard` or `killall bbb-dashboard` to stop the app.
 
 ## ⏰ Set Timezone
 ```bash
