@@ -438,8 +438,7 @@ Window {
                         Text {
                             text: dateTimeMonitor.currentDate
                             color: "#ffffff"
-                            font.pixelSize: 20
-                            font.bold: true
+                            font.pixelSize: 16
                             Layout.alignment: Qt.AlignHCenter
                             renderType: Text.NativeRendering
                         }
