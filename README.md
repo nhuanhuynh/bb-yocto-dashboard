@@ -78,6 +78,12 @@ The dashboard should appear automatically after the board boots (30-60 seconds).
 dmesg | grep -i "ili9341\|fbtft\|fb0"
 ```
 
+## ⏰ Set Timezone
+```bash
+timedatectl set-timezone Asia/Ho_Chi_Minh
+timedatectl status
+```
+
 ## ℹ️ Yocto Info
 
 | | |
